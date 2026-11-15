@@ -1,0 +1,34 @@
+services:
+  - type: web
+    name: e-news-platform
+    runtime: node
+    plan: starter
+    buildCommand: npm ci && npx prisma generate && npx prisma migrate deploy && npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: enews-postgres
+          property: connectionString
+      - key: JWT_ACCESS_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: CRON_SECRET
+        generateValue: true
+      - key: MEDIA_DIR
+        value: /var/data/uploads
+      - key: APP_URL
+        sync: false
+    disk:
+      name: uploads
+      mountPath: /var/data/uploads
+      sizeGB: 10
+
+databases:
+  - name: enews-postgres
+    plan: starter
+    databaseName: enews
+    user: enews
