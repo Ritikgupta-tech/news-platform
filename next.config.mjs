@@ -9,7 +9,10 @@ const securityHeaders = [
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   poweredByHeader: false,
-  serverExternalPackages: ["@node-rs/argon2"],
+  serverExternalPackages: ["@node-rs/argon2", "@prisma/client", "prisma"],
+  outputFileTracingIncludes: {
+    "**": ["./node_modules/.prisma/client/**"],
+  },
   reactStrictMode: true,
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
