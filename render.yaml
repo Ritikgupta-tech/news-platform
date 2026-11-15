@@ -9,9 +9,7 @@ services:
       - key: NODE_ENV
         value: production
       - key: DATABASE_URL
-        fromDatabase:
-          name: enews-postgres
-          property: connectionString
+        sync: false
       - key: JWT_ACCESS_SECRET
         generateValue: true
       - key: JWT_REFRESH_SECRET
@@ -22,9 +20,3 @@ services:
         value: ./uploads
       - key: APP_URL
         value: https://e-news-platform.onrender.com
-
-databases:
-  - name: enews-postgres
-    plan: free
-    databaseName: enews
-    user: enews
