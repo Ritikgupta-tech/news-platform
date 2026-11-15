@@ -2,7 +2,7 @@ services:
   - type: web
     name: e-news-platform
     runtime: node
-    plan: starter
+    plan: free
     buildCommand: npm ci && npx prisma generate && npx prisma migrate deploy && npm run build
     startCommand: npm run start
     envVars:
@@ -19,16 +19,12 @@ services:
       - key: CRON_SECRET
         generateValue: true
       - key: MEDIA_DIR
-        value: /var/data/uploads
+        value: ./uploads
       - key: APP_URL
         sync: false
-    disk:
-      name: uploads
-      mountPath: /var/data/uploads
-      sizeGB: 10
 
 databases:
   - name: enews-postgres
-    plan: starter
+    plan: free
     databaseName: enews
     user: enews

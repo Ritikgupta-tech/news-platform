@@ -53,21 +53,21 @@ npx prisma migrate deploy
 
 ---
 
-## 3. Deploying to Render
+## 3. Deploying to Render (100% Free Tier - No Credit Card Required)
 
-Render is ideal for running the full Node.js server along with a managed PostgreSQL database and persistent disks for media storage.
+Render provides a completely free tier for both Web Services and PostgreSQL databases without requiring payment details or credit cards.
 
-### Using Render Blueprint (`render.yaml`)
-A ready-to-use `render.yaml` specification is included in the root directory.
+### Using Render Free Blueprint (`render.yaml`)
+A 100% Free Tier `render.yaml` specification is configured in the root directory:
 
 1. Go to [render.com](https://render.com) and click **"Blueprints"** -> **"New Blueprint Instance"**.
 2. Connect your GitHub repository `Ritikgupta-tech/news-platform`.
-3. Render automatically provisions:
-   - **`enews-postgres`**: Managed PostgreSQL database.
-   - **`e-news-platform`**: Web service running Node 22 with auto-generated secrets (`JWT_ACCESS_SECRET`, `JWT_REFRESH_SECRET`, `CRON_SECRET`).
-   - **Persistent Disk**: Attached 10GB volume at `/var/data/uploads` for media assets.
+3. Render automatically provisions the free resources:
+   - **`enews-postgres`**: Render Free Tier PostgreSQL database (`plan: free`).
+   - **`e-news-platform`**: Render Free Tier Web Service (`plan: free`) running Node 22 with auto-generated secrets (`JWT_ACCESS_SECRET`, `JWT_REFRESH_SECRET`, `CRON_SECRET`).
+   - **Zero Payment / No Card**: Uses `plan: free` with no paid disks or starter plans.
 4. Set `APP_URL` to your Render URL (e.g., `https://e-news-platform.onrender.com`).
-5. Click **"Apply"** to deploy.
+5. Click **"Apply"** to deploy for free.
 
 ### Scheduled Background Publishing on Render
 To process scheduled articles and newsletter campaigns on a regular cron:

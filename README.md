@@ -132,7 +132,7 @@ npm run build
 ### Deploying to Render
 1. In Render, select **"Blueprints"** -> **"New Blueprint Instance"**.
 2. Connect `https://github.com/Ritikgupta-tech/news-platform.git`.
-3. Render automatically provisions the web service, database, and persistent upload disk using `render.yaml`.
+3. Render automatically provisions the free web service and free database (zero cost, no card required) using `render.yaml`.
 
 For detailed deployment steps, see [docs/deployment.md](docs/deployment.md).
 
