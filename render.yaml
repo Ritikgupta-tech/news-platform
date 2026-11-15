@@ -21,7 +21,7 @@ services:
       - key: MEDIA_DIR
         value: ./uploads
       - key: APP_URL
-        sync: false
+        value: https://e-news-platform.onrender.com
 
 databases:
   - name: enews-postgres
