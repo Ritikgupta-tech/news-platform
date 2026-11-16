@@ -23,11 +23,34 @@
   Engineered by <strong>Ashivam Technologies</strong> to rival the aesthetic authority of <em>The Financial Times</em>, <em>Monocle</em>, and <em>Apple Newsroom</em>.
 </p>
 
-[**Explore Live Deployment →**](https://news-platform-kappa.vercel.app) • [**Corporate Organization**](https://github.com/AshivamTechnologies) • [**System Architecture**](#-system-architecture) • [**Editorial CMS Workflow**](#-multi-role-editorial-cms-workflow)
+[**Explore Live Deployment →**](https://news-platform-kappa.vercel.app) • [**Admin Login Portal →**](https://news-platform-kappa.vercel.app/login) • [**Corporate Organization**](https://github.com/AshivamTechnologies) • [**System Architecture**](#-system-architecture) • [**Editorial CMS Workflow**](#-multi-role-editorial-cms-workflow)
 
 ---
 
 </div>
+
+## 🔑 Live Demonstration & Admin Access
+
+For hiring managers, technical evaluators, and reviewers exploring the administrative newsroom and editorial CMS, verified credentials with full platform privileges are provided below:
+
+| Resource | Live Access Link / Value | Notes |
+| :--- | :--- | :--- |
+| **Admin Login Gateway** | [**`news-platform-kappa.vercel.app/login`**](https://news-platform-kappa.vercel.app/login) | Unified SSO gateway for all editorial staff |
+| **Admin Executive Dashboard** | [**`news-platform-kappa.vercel.app/admin`**](https://news-platform-kappa.vercel.app/admin) | Newsroom telemetry, KPIs & platform governance |
+| **Editorial Review Queue** | [**`news-platform-kappa.vercel.app/admin/articles?scope=review`**](https://news-platform-kappa.vercel.app/admin/articles?scope=review) | Editorial fact-checking, review & publish queue |
+| **Author Studio (TipTap)** | [**`news-platform-kappa.vercel.app/author/dashboard`**](https://news-platform-kappa.vercel.app/author/dashboard) | Journalist story drafting & media uploads |
+| **Homepage Slot Curation** | [**`news-platform-kappa.vercel.app/admin/featured`**](https://news-platform-kappa.vercel.app/admin/featured) | Pinned Hero Slots 1–5 & Editor's Choice cards |
+| **Admin ID / Email** | `admin@ashivam.com` | Verified System Administrator account |
+| **Admin Password** | `k5WzD#QbQm)!Eiv+SV$RG2MfReaedmsJ` | Cryptographically rotated 32-char passkey |
+| **Assigned Roles** | `ADMIN`, `EDITOR`, `AUTHOR` | Complete 28-permission administrative access |
+
+> [!TIP]
+> **Operator Quickstart:**
+> 1. Open the [**Login Gateway**](https://news-platform-kappa.vercel.app/login).
+> 2. Enter Email: `admin@ashivam.com` and Password: `k5WzD#QbQm)!Eiv+SV$RG2MfReaedmsJ`.
+> 3. Upon signing in, click the user avatar in the top-right masthead (or open the mobile drawer) to navigate directly into **Newsroom Governance**, **Review Queue**, or **Author Studio**.
+
+---
 
 ## 📑 Executive Summary
 
