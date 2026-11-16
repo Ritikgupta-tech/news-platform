@@ -7,8 +7,13 @@ const db = createPrismaClient();
 
 async function main() {
   const email = process.env.ADMIN_EMAIL || "admin@ashivam.com";
-  const password = process.env.ADMIN_PASSWORD || "AshivamAdmin@2026!";
   const name = "System Administrator";
+  const password = process.env.ADMIN_PASSWORD;
+
+  if (!password || password.length < 16) {
+    console.error("FATAL: ADMIN_PASSWORD environment variable is required and must be at least 16 characters.");
+    process.exit(1);
+  }
 
   console.log(`Setting up Admin account for: ${email}`);
   const passwordHash = await hashPassword(password);
@@ -64,10 +69,10 @@ async function main() {
   });
 
   console.log("\n=======================================================");
-  console.log(" SUCCESS: Admin Account Ready!");
-  console.log(` Email:    ${email}`);
-  console.log(` Password: ${password}`);
-  console.log(" Roles:    ADMIN, EDITOR, AUTHOR");
+  console.log(" SUCCESS: Admin Account Configured Securely");
+  console.log(` Target Email: ${email}`);
+  console.log(" Password:     [PROTECTED - Read from environment]");
+  console.log(" Roles:        ADMIN, EDITOR, AUTHOR");
   console.log("=======================================================\n");
 }
 
