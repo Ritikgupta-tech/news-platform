@@ -5,7 +5,7 @@ import { HeroCarousel } from "@/components/news/HeroCarousel";
 import { FeaturedStories } from "@/components/news/FeaturedStories";
 import { RankedList } from "@/components/news/RankedList";
 import { CategoryShortcuts } from "@/components/news/CategoryShortcuts";
-import { ArticleRow } from "@/components/news/ArticleCard";
+import { InteractiveFeed } from "@/components/news/InteractiveFeed";
 import { NewsletterCard } from "@/components/news/NewsletterCard";
 import { PromoBanner } from "@/components/news/PromoBanner";
 import { CATEGORY_SHORTCUTS } from "@/config/navigation";
@@ -19,7 +19,7 @@ export default async function Home() {
     settle("featured", c.listFeatured(3), []),
     settle("mostViewed", c.listMostViewed(5), []),
     settle("trending", c.listTrending(5), []),
-    settle("latest", c.listLatest({ page: 1, pageSize: 8 }), null),
+    settle("latest", c.listLatest({ page: 1, pageSize: 12 }), null),
     settle("promo", c.getPromo(), null),
   ]);
   const allFailed = [hero, featured, viewed, trending, latest].every((r) => r.failed);
@@ -74,15 +74,11 @@ export default async function Home() {
             <StateMessage kind="error" title="Latest news is unavailable">Please try again shortly.</StateMessage>
           ) : (
             <>
-              <div className="feed feed--luxury">
-                {latest.data?.items.map((a) => (
-                  <ArticleRow key={a.id} article={a} />
-                ))}
-              </div>
+              <InteractiveFeed initialArticles={latest.data?.items ?? []} />
               {latest.data?.meta.hasNext ? (
                 <div className="feed-actions">
                   <ButtonLink href="/news?page=2" variant="secondary" className="btn--luxury-loadmore">
-                    <span>Load More Dispatches</span>
+                    <span>Explore More Dispatches</span>
                   </ButtonLink>
                 </div>
               ) : null}
