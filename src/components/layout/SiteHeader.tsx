@@ -7,6 +7,7 @@ import { PRIMARY_NAV } from "@/config/navigation";
 import { formatRelative } from "@/lib/format";
 import type { NotificationItem, SessionUser } from "@/types/news";
 import { useDismiss } from "./useDismiss";
+import { MobileDrawer } from "./MobileDrawer";
 
 interface Props {
   brand?: string;
@@ -314,51 +315,14 @@ export function SiteHeader({ brand = "E News", user, notifications = [] }: Props
         </div>
       </div>
 
-      {/* Luxury Mobile Navigation Drawer */}
-      <div id="mobile-nav" className={`mobile-nav ${menuOpen ? "is-open" : ""}`} hidden={!menuOpen}>
-        <div className="mobile-nav__header">
-          <span className="brand__titles">
-            <span className="brand__name">E NEWS</span>
-            <span className="brand__tagline">GLOBAL EDITION</span>
-          </span>
-          <button
-            type="button"
-            className="icon-btn"
-            aria-label="Close menu"
-            onClick={() => setMenuOpen(false)}
-          >
-            <Icon name="close" />
-          </button>
-        </div>
-
-        <nav aria-label="Mobile Navigation" className="mobile-nav__list">
-          <ul>
-            {PRIMARY_NAV.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  aria-current={isActive(pathname, item.href) ? "page" : undefined}
-                  onClick={() => setMenuOpen(false)}
-                >
-                  <span>{item.label}</span>
-                  <Icon name="chevronRight" size={16} />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <div className="mobile-nav__footer">
-          <Link href="/newsletter" className="btn btn--gold btn--full" onClick={() => setMenuOpen(false)}>
-            Subscribe to The Executive Briefing
-          </Link>
-          <div className="mobile-nav__links">
-            <Link href="/about" onClick={() => setMenuOpen(false)}>About</Link>
-            <Link href="/bookmarks" onClick={() => setMenuOpen(false)}>Bookmarks</Link>
-            <Link href="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
-          </div>
-        </div>
-      </div>
+      {/* Luxury Mobile Navigation Drawer (Portaled to document.body for clean fixed viewport rendering) */}
+      <MobileDrawer
+        isOpen={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        brand={brand}
+        user={user}
+        pathname={pathname}
+      />
     </header>
   );
 }
