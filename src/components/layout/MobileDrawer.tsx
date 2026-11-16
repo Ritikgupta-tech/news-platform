@@ -180,9 +180,19 @@ export function MobileDrawer({ isOpen, onClose, brand = "E News", user, pathname
                 <Link href="/profile" className="btn btn--secondary btn--sm btn--full" onClick={onClose}>
                   My Account &amp; Subscription
                 </Link>
+                {user.roles.some((r) => r === "AUTHOR" || r === "EDITOR" || r === "ADMIN") ? (
+                  <Link href="/author/dashboard" className="btn btn--ghost btn--sm btn--full" onClick={onClose}>
+                    Author Studio
+                  </Link>
+                ) : null}
+                {user.roles.some((r) => r === "EDITOR" || r === "ADMIN") ? (
+                  <Link href="/admin/articles?scope=review" className="btn btn--ghost btn--sm btn--full" onClick={onClose}>
+                    Editorial Review Queue
+                  </Link>
+                ) : null}
                 {user.roles.includes("ADMIN") ? (
                   <Link href="/admin" className="btn btn--ghost btn--sm btn--full" onClick={onClose}>
-                    Newsroom Console
+                    Newsroom Console &amp; Admin
                   </Link>
                 ) : null}
                 <form action="/api/v1/auth/logout" method="post">
