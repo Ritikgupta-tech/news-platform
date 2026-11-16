@@ -18,7 +18,11 @@ let cached: Env | undefined;
 /** Lazily validated so tests and builds that don't need secrets still work. */
 export function getEnv(source: NodeJS.ProcessEnv = process.env): Env {
   if (source === process.env && cached) return cached;
-  const rawAppUrl = source.APP_URL || source.RENDER_EXTERNAL_URL || (source.VERCEL_URL ? `https://${source.VERCEL_URL}` : undefined);
+  const rawAppUrl =
+    source.APP_URL ||
+    source.RENDER_EXTERNAL_URL ||
+    (source.VERCEL_PROJECT_PRODUCTION_URL ? `https://${source.VERCEL_PROJECT_PRODUCTION_URL}` : undefined) ||
+    (source.VERCEL_URL ? `https://${source.VERCEL_URL}` : undefined);
   const dataToParse = { ...source, ...(rawAppUrl ? { APP_URL: rawAppUrl } : {}) };
   const parsed = schema.safeParse(dataToParse);
   if (!parsed.success) {
