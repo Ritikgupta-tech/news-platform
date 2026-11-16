@@ -5,7 +5,7 @@
 
 [![Live Platform](https://img.shields.io/badge/Production%20Live-news--platform--kappa.vercel.app-b38234?style=for-the-badge&logo=vercel&logoColor=white)](https://news-platform-kappa.vercel.app)
 [![Company](https://img.shields.io/badge/Enterprise-Ashivam%20Technologies-090d16?style=for-the-badge&logo=github&logoColor=white)](https://github.com/AshivamTechnologies)
-[![License](https://img.shields.io/badge/License-Proprietary%20%2F%20MIT-11141a?style=for-the-badge)](LICENSE)
+
 
 <br />
 
@@ -376,4 +376,3 @@ This project is an engineering asset developed for and maintained by:
 ## 📄 License
 
 Copyright &copy; 2024&ndash;2026 **Ashivam Technologies**. All rights reserved.  
-Distributed under the [MIT License](LICENSE).
