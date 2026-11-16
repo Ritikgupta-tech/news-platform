@@ -1,0 +1,46 @@
+name: Production CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Lint, Test & Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Generate Prisma Client
+        run: npx prisma generate
+        env:
+          DATABASE_URL: "postgresql://ci_user:ci_pass@localhost:5432/ci_db"
+
+      - name: Run Typecheck
+        run: npm run typecheck
+
+      - name: Run Unit Tests
+        run: npm run test:unit
+
+      - name: Build Application
+        run: npm run build
+        env:
+          NODE_ENV: production
+          APP_URL: "https://news-platform-kappa.vercel.app"
+          JWT_ACCESS_SECRET: "ci-dummy-access-secret-minimum-32-characters-long"
+          JWT_REFRESH_SECRET: "ci-dummy-refresh-secret-minimum-32-characters-long"
+          CRON_SECRET: "ci-dummy-cron-secret-minimum-32-characters-long"
+          DATABASE_URL: "postgresql://ci_user:ci_pass@localhost:5432/ci_db"
