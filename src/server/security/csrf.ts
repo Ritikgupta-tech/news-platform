@@ -14,7 +14,7 @@ export function assertSameOrigin(req: Request, appUrl: string): void {
   const site = req.headers.get("sec-fetch-site");
 
   // Modern browsers send Sec-Fetch-Site; if explicitly cross-site, immediately block
-  if (site && site !== "same-origin" && site !== "same-site") {
+  if (site === "cross-site") {
     throw blocked();
   }
 
@@ -29,10 +29,24 @@ export function assertSameOrigin(req: Request, appUrl: string): void {
     if (req.url) allowedOrigins.add(new URL(req.url).origin.toLowerCase());
   } catch {}
 
-  const host = req.headers.get("x-forwarded-host") || req.headers.get("host");
-  if (host) {
-    const proto = req.headers.get("x-forwarded-proto") || (host.startsWith("localhost") || host.startsWith("127.0.0.1") ? "http" : "https");
-    allowedOrigins.add(`${proto}://${host}`.toLowerCase());
+  const rawHost = req.headers.get("x-forwarded-host") || req.headers.get("host");
+  if (rawHost) {
+    const firstHost = rawHost.split(",")[0];
+    const host = (firstHost ? firstHost.trim() : rawHost.trim()).toLowerCase();
+    const rawProto = req.headers.get("x-forwarded-proto") || (host.startsWith("localhost") || host.startsWith("127.0.0.1") ? "http" : "https");
+    const firstProto = rawProto.split(",")[0];
+    const proto = (firstProto ? firstProto.trim() : "https").toLowerCase();
+    allowedOrigins.add(`${proto}://${host}`);
+
+    // If request Origin has the exact same host as our host header, it is same-origin
+    if (origin) {
+      try {
+        const originUrl = new URL(origin);
+        if (originUrl.host.toLowerCase() === host) {
+          allowedOrigins.add(originUrl.origin.toLowerCase());
+        }
+      } catch {}
+    }
   }
 
   if (origin) {
