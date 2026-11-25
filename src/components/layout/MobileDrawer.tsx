@@ -210,8 +210,8 @@ export function MobileDrawer({ isOpen, onClose, brand = "E News", user, pathname
               </div>
               <p>Independent global reporting and intelligence delivered daily at market open.</p>
               <div className="drawer-cta-card__buttons">
-                <Link href="/newsletter" className="btn btn--gold btn--full" onClick={onClose}>
-                  Subscribe to Briefing
+                <Link href="/subscribe" className="btn btn--gold btn--full" onClick={onClose}>
+                  Subscribe &amp; Membership
                 </Link>
                 <Link href="/login" className="btn btn--ghost btn--full drawer-signin-btn" onClick={onClose}>
                   Subscriber Sign In

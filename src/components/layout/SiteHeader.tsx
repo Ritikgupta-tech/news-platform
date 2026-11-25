@@ -8,6 +8,7 @@ import { formatRelative } from "@/lib/format";
 import type { NotificationItem, SessionUser } from "@/types/news";
 import { useDismiss } from "./useDismiss";
 import { MobileDrawer } from "./MobileDrawer";
+import { MarketTicker } from "./MarketTicker";
 
 interface Props {
   brand?: string;
@@ -100,19 +101,8 @@ export function SiteHeader({ brand = "E News", user, notifications = [] }: Props
             </span>
           </div>
 
-          <div className="top-ticker-bar__marquee" aria-label="Live Market Indices">
-            <div className="marquee-track">
-              <span className="marquee-item"><strong>S&amp;P 500</strong> <span className="delta--up">▲ 5,916.8 (+0.42%)</span></span>
-              <span className="marquee-sep">•</span>
-              <span className="marquee-item"><strong>NASDAQ</strong> <span className="delta--up">▲ 19,281.4 (+0.68%)</span></span>
-              <span className="marquee-sep">•</span>
-              <span className="marquee-item"><strong>GOLD</strong> <span className="delta--up">▲ $2,684.20/oz (+0.75%)</span></span>
-              <span className="marquee-sep">•</span>
-              <span className="marquee-item"><strong>BRENT CRUDE</strong> <span className="delta--down">▼ $73.90/bbl (-0.38%)</span></span>
-              <span className="marquee-sep">•</span>
-              <span className="marquee-item"><strong>NIFTY 50</strong> <span className="delta--up">▲ 24,180.8 (+0.55%)</span></span>
-            </div>
-          </div>
+          {/* Dynamic Editorial Market Ticker with Delay Notice and Attribution */}
+          <MarketTicker />
 
           <div className="top-ticker-bar__live">
             <Link href="/news" className="live-bulletin-link">
@@ -306,7 +296,7 @@ export function SiteHeader({ brand = "E News", user, notifications = [] }: Props
             ) : (
               <div className="auth-actions">
                 <Link href="/login" className="btn btn--ghost btn--sm">Log in</Link>
-                <Link href="/newsletter" className="btn btn--gold btn--sm subscribe-btn">
+                <Link href="/subscribe" className="btn btn--gold btn--sm subscribe-btn">
                   <span>Subscribe</span>
                 </Link>
               </div>
