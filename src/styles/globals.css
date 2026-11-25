@@ -3302,6 +3302,45 @@ button, input, select, textarea { font: inherit; color: inherit; }
   flex-wrap: wrap;
 }
 
+/* ==========================================================================
+   Reader Profile & Security Settings Grid
+   ========================================================================== */
+.profile-grid {
+  display: grid;
+  gap: var(--sp-6);
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 768px) {
+  .profile-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.panel.danger-zone {
+  border-color: #fca5a5;
+  background: #fffcfc;
+}
+.panel.danger-zone .panel__title {
+  color: #dc2626;
+}
+.kv {
+  display: grid;
+  grid-template-columns: 130px minmax(0, 1fr);
+  gap: var(--sp-2) var(--sp-4);
+  font-size: var(--fs-sm);
+  margin-bottom: var(--sp-4);
+  padding-bottom: var(--sp-4);
+  border-bottom: 1px solid var(--c-border);
+}
+.kv dt {
+  color: var(--c-muted);
+  font-weight: 600;
+}
+.kv dd {
+  color: var(--c-ink);
+  font-weight: 500;
+  margin: 0;
+}
+
 /* Search Page Luxury Components */
 .search-page {
   display: flex;
