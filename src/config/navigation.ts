@@ -24,16 +24,18 @@ export const CATEGORY_SHORTCUTS: CategoryShortcut[] = [
 
 export const FOOTER_LINKS = {
   quick: [
-    { label: "Latest news", href: "/news" },
-    { label: "Trending", href: "/trending" },
-    { label: "Most read", href: "/most-read" },
-    { label: "Newsletter", href: "/newsletter" },
-    { label: "RSS feed", href: "/feed.xml" },
-    { label: "About", href: "/about" },
-    { label: "Contact", href: "/contact" },
+    { label: "Latest Dispatches", href: "/news" },
+    { label: "Trending Velocity", href: "/trending" },
+    { label: "Most Read", href: "/most-read" },
+    { label: "Executive Subscriptions", href: "/subscribe" },
+    { label: "The Briefing Newsletter", href: "/newsletter" },
+    { label: "RSS Feed", href: "/feed.xml" },
+    { label: "About & Standards", href: "/about" },
+    { label: "Newsroom Contact", href: "/contact" },
   ],
   legal: [
-    { label: "Privacy policy", href: "/privacy-policy" },
-    { label: "Terms and conditions", href: "/terms" },
+    { label: "Privacy Policy", href: "/privacy-policy" },
+    { label: "Terms of Publication", href: "/terms" },
+    { label: "Membership Tiers", href: "/subscribe" },
   ],
 };

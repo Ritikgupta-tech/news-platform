@@ -11,8 +11,11 @@ import { PromoBanner } from "@/components/news/PromoBanner";
 import { CATEGORY_SHORTCUTS } from "@/config/navigation";
 import { getContent } from "@/lib/content";
 import { settle } from "@/lib/safe";
+import { siteUrl } from "@/lib/site";
+import { websiteJsonLd, newsOrganizationJsonLd, jsonLdString } from "@/lib/seo";
 
 export default async function Home() {
+  const base = siteUrl();
   const c = getContent();
   const [hero, featured, viewed, trending, latest, promo] = await Promise.all([
     settle("hero", c.listHero(5), []),
@@ -30,6 +33,8 @@ export default async function Home() {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(websiteJsonLd(base)) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(newsOrganizationJsonLd(base)) }} />
       {hero.data.length === 0 ? <h1 className="visually-hidden">E News: Lead Editorial Stories</h1> : null}
 
       {/* Hero Showcase & Curated Dispatch Grid */}

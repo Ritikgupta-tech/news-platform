@@ -5,7 +5,7 @@ export function absoluteUrl(path: string, base: string): string {
 }
 
 /** schema.org NewsArticle. Serialise with jsonLdString() so "</script>" in content cannot break out. */
-export function newsArticleJsonLd(a: ArticleDetail, base: string, publisherName = "E News") {
+export function newsArticleJsonLd(a: ArticleDetail, base: string, publisherName = "The Independent Journal") {
   const url = absoluteUrl(`/news/${a.slug}`, base);
   return {
     "@context": "https://schema.org",
@@ -17,8 +17,17 @@ export function newsArticleJsonLd(a: ArticleDetail, base: string, publisherName 
     datePublished: a.publishedAt,
     dateModified: a.updatedAt,
     articleSection: a.category.name,
-    author: [{ "@type": "Person", name: a.author.name, url: absoluteUrl(`/authors/${a.author.slug}`, base) }],
-    publisher: { "@type": "Organization", name: publisherName },
+    author: [{ "@type": "Person", name: a.author.name, url: a.author.slug ? absoluteUrl(`/authors/${a.author.slug}`, base) : undefined }],
+    publisher: {
+      "@type": "NewsMediaOrganization",
+      name: publisherName,
+      url: base,
+      logo: {
+        "@type": "ImageObject",
+        url: absoluteUrl("/logo.png", base),
+      },
+      publishingPrinciples: absoluteUrl("/about", base),
+    },
   };
 }
 
@@ -27,6 +36,39 @@ export function breadcrumbJsonLd(items: { name: string; path: string }[], base: 
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: items.map((it, i) => ({ "@type": "ListItem", position: i + 1, name: it.name, item: absoluteUrl(it.path, base) })),
+  };
+}
+
+export function websiteJsonLd(base: string, name = "The Independent Journal") {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name,
+    url: base,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${base}/search?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
+  };
+}
+
+export function newsOrganizationJsonLd(base: string, name = "The Independent Journal") {
+  return {
+    "@context": "https://schema.org",
+    "@type": "NewsMediaOrganization",
+    name,
+    url: base,
+    logo: {
+      "@type": "ImageObject",
+      url: absoluteUrl("/logo.png", base),
+    },
+    publishingPrinciples: absoluteUrl("/about", base),
+    correctionsPolicy: absoluteUrl("/about", base),
+    ethicsPolicy: absoluteUrl("/terms", base),
   };
 }
 
