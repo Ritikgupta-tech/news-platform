@@ -15,6 +15,7 @@ import { ReadingProgress } from "@/components/article/ReadingProgress";
 import { ShareButtons } from "@/components/article/ShareButtons";
 import { ReportArticleButton } from "@/components/article/ReportArticleButton";
 import { TableOfContents } from "@/components/article/TableOfContents";
+import { AudioArticlePlayer } from "@/components/article/AudioArticlePlayer";
 import { Badge } from "@/components/ui/Badge";
 import { Icon } from "@/components/ui/Icon";
 import { getContent } from "@/lib/content";
@@ -96,6 +97,7 @@ export default async function ArticlePage({ params }: Props) {
 
         <div className="article__layout">
           <div id="article-body" className="article__main">
+            <AudioArticlePlayer title={article.title} summary={article.summary} readingMinutes={article.readingMinutes} />
             <div className="article__tools">
               <ShareButtons url={url} title={article.title} />
               <BookmarkButton articleId={article.id} initial={saved} signedIn={!!reader} loginHref={`/login?next=${encodeURIComponent(`/news/${article.slug}`)}`} />
