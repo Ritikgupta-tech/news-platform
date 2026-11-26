@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/Badge";
 import { ArticleImage } from "./ArticleImage";
@@ -19,16 +19,36 @@ const DESK_TABS = [
 
 export function InteractiveFeed({ initialArticles }: { initialArticles: ArticleSummary[] }) {
   const [activeTab, setActiveTab] = useState("all");
+  const tabsWrapRef = useRef<HTMLDivElement>(null);
+
+  // Smooth mouse-wheel horizontal scrolling when container is overflowing
+  useEffect(() => {
+    const el = tabsWrapRef.current;
+    if (!el) return;
+    const onWheel = (e: WheelEvent) => {
+      if (el.scrollWidth > el.clientWidth && e.deltaY && !e.deltaX) {
+        e.preventDefault();
+        el.scrollLeft += e.deltaY * 0.85;
+      }
+    };
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  }, []);
 
   const filtered = useMemo(() => {
     if (activeTab === "all") return initialArticles;
     return initialArticles.filter((a) => a.category.slug === activeTab);
   }, [activeTab, initialArticles]);
 
+  const handleSelectTab = (id: string, e: React.MouseEvent<HTMLButtonElement>) => {
+    setActiveTab(id);
+    e.currentTarget.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+  };
+
   return (
     <div className="interactive-feed">
       {/* Editorial Filter Tabs */}
-      <div className="desk-tabs-wrap" role="tablist" aria-label="Editorial Desks">
+      <div ref={tabsWrapRef} className="desk-tabs-wrap" role="tablist" aria-label="Editorial Desks">
         <div className="desk-tabs">
           {DESK_TABS.map((tab) => {
             const isCurrent = activeTab === tab.id;
@@ -39,7 +59,7 @@ export function InteractiveFeed({ initialArticles }: { initialArticles: ArticleS
                 type="button"
                 aria-selected={isCurrent}
                 className={`desk-tab ${isCurrent ? "is-active" : ""}`}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={(e) => handleSelectTab(tab.id, e)}
               >
                 <span>{tab.label}</span>
                 {isCurrent ? <span className="desk-tab__indicator" aria-hidden="true" /> : null}
